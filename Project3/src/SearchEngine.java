@@ -26,6 +26,7 @@ public class SearchEngine extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -83,7 +84,6 @@ public class SearchEngine extends javax.swing.JFrame {
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setToolTipText("");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -109,10 +109,13 @@ public class SearchEngine extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton2.setText("Search");
 
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Search All Terms");
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Search Any Terms");
 
+        buttonGroup1.add(jRadioButton3);
         jRadioButton3.setSelected(true);
         jRadioButton3.setText("Search Exact");
 
@@ -235,6 +238,7 @@ public class SearchEngine extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
