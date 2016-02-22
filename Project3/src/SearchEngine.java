@@ -27,6 +27,7 @@ public class SearchEngine extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jFileChooser1 = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -86,6 +87,8 @@ public class SearchEngine extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setToolTipText("");
 
+        textArea1.setEditable(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -122,6 +125,11 @@ public class SearchEngine extends javax.swing.JFrame {
         jMenu1.setText("File");
 
         jMenuAdd.setText("Add File");
+        jMenuAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuAddActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuAdd);
 
         jMenuRebuild.setText("Rebuild");
@@ -202,6 +210,10 @@ public class SearchEngine extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAddActionPerformed
+        int returnVal = jFileChooser1.showOpenDialog(this);
+    }//GEN-LAST:event_jMenuAddActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -241,6 +253,7 @@ public class SearchEngine extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jList1;
