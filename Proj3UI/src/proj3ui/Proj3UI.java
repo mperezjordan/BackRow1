@@ -15,7 +15,9 @@ public class Proj3UI {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        SearchUI form = new SearchUI();
+        form.setVisible(true);
+        
     }
     
 }
