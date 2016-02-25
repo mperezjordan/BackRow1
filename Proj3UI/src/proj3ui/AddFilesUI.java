@@ -7,7 +7,7 @@ package proj3ui;
 
 /**
  *
- * @author ventureFive
+ * @author kylemcintyre
  */
 public class AddFilesUI extends javax.swing.JFrame {
 
