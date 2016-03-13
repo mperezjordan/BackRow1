@@ -22,6 +22,7 @@ public class SearchEngine extends javax.swing.JFrame {
      * Creates new form SearchEngine
      */
     
+    File fileStore = new File("/Temp.txt");
     DefaultTableModel model;
     public SearchEngine() {
         initComponents();
@@ -265,7 +266,7 @@ public class SearchEngine extends javax.swing.JFrame {
         
         
         
-        File fileStore = new File("/Temp.txt");
+        
         
         int returnVal = jFileChooser1.showOpenDialog(this);
          if (returnVal == jFileChooser1.APPROVE_OPTION)
