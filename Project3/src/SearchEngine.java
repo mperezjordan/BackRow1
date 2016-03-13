@@ -1,5 +1,6 @@
 
 import java.io.File;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,8 +17,11 @@ public class SearchEngine extends javax.swing.JFrame {
     /**
      * Creates new form SearchEngine
      */
+    
+    DefaultTableModel model;
     public SearchEngine() {
         initComponents();
+        model = (DefaultTableModel)jFLTable.getModel();
     }
 
     /**
@@ -73,10 +77,7 @@ public class SearchEngine extends javax.swing.JFrame {
 
         jFLTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "File", "Status"
@@ -259,7 +260,8 @@ public class SearchEngine extends javax.swing.JFrame {
         {
             // basic file chooser and add file to text area
 
-           File selectedFile = jFileChooser1.getSelectedFile();          
+           File selectedFile = jFileChooser1.getSelectedFile();  
+           model.insertRow(model.getRowCount(), new Object[]{selectedFile.getAbsoluteFile()});
            
 
         
