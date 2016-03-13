@@ -258,7 +258,7 @@ public class SearchEngine extends javax.swing.JFrame {
         int returnVal = jFileChooser1.showOpenDialog(this);
          if (returnVal == jFileChooser1.APPROVE_OPTION)
         {
-            // basic file chooser and add file to text area
+            // adds files to table
 
            File selectedFile = jFileChooser1.getSelectedFile();  
            model.insertRow(model.getRowCount(), new Object[]{selectedFile.getAbsoluteFile()});
@@ -275,7 +275,13 @@ public class SearchEngine extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // 
-        //jFileListText.removeAll();
+        //removes selected row from table
+       if (jFLTable.getSelectedRow() != -1)
+       {
+           model.removeRow(jFLTable.getSelectedRow());
+       
+       }
+       
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
