@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.io.File;
+
 /**
  *
  * @author Kira
@@ -228,18 +228,10 @@ public class SearchEngine extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAddActionPerformed
-       // File Chooser for opening files
         int returnVal = jFileChooser1.showOpenDialog(this);
-        if (returnVal == jFileChooser1.APPROVE_OPTION)
-        {
-            File selectedFile = jFileChooser1.getSelectedFile();
-            
-        
-        }
     }//GEN-LAST:event_jMenuAddActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       // placeholder text for searching
         jTextSearchResults.setText("No Matching Results");
     }//GEN-LAST:event_jButton2ActionPerformed
 
