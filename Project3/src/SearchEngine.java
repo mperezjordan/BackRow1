@@ -1,5 +1,9 @@
 
+
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -173,6 +177,11 @@ public class SearchEngine extends javax.swing.JFrame {
         jMenu1.add(jMenuAdd);
 
         jMenuRebuild.setText("Rebuild");
+        jMenuRebuild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuRebuildActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuRebuild);
 
         jMenuBar1.add(jMenu1);
@@ -255,6 +264,9 @@ public class SearchEngine extends javax.swing.JFrame {
     private void jMenuAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAddActionPerformed
         
         
+        
+        File fileStore = new File("/Temp.txt");
+        
         int returnVal = jFileChooser1.showOpenDialog(this);
          if (returnVal == jFileChooser1.APPROVE_OPTION)
         {
@@ -263,6 +275,25 @@ public class SearchEngine extends javax.swing.JFrame {
            File selectedFile = jFileChooser1.getSelectedFile();  
            model.insertRow(model.getRowCount(), new Object[]{selectedFile.getAbsoluteFile()});
            
+           try {
+
+            if(!fileStore.exists()){
+               fileStore.createNewFile();
+            }
+
+            
+            
+            PrintWriter out = new PrintWriter(new FileWriter(fileStore.getAbsoluteFile(), true));
+
+            
+            out.append(selectedFile.getAbsolutePath() + "\n");
+            out.close();
+           
+            
+            } catch(IOException e){
+
+                e.printStackTrace();
+            }
 
         
         }
@@ -284,6 +315,15 @@ public class SearchEngine extends javax.swing.JFrame {
        
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuRebuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRebuildActionPerformed
+        // refresh file list on menu click
+      
+       
+       
+       
+        
+    }//GEN-LAST:event_jMenuRebuildActionPerformed
 
     /**
      * @param args the command line arguments
