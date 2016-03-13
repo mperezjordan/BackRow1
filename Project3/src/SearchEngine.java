@@ -35,7 +35,7 @@ public class SearchEngine extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jFileListText = new javax.swing.JTextArea();
+        jFLTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextSearchResults = new javax.swing.JTextArea();
@@ -61,16 +61,38 @@ public class SearchEngine extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton1.setText("Delete Selected");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setAutoscrolls(true);
 
-        jFileListText.setEditable(false);
-        jFileListText.setColumns(20);
-        jFileListText.setLineWrap(true);
-        jFileListText.setRows(5);
-        jScrollPane3.setViewportView(jFileListText);
+        jFLTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "File", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jFLTable.setColumnSelectionAllowed(true);
+        jScrollPane3.setViewportView(jFLTable);
+        jFLTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -230,14 +252,15 @@ public class SearchEngine extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAddActionPerformed
+        
+        
         int returnVal = jFileChooser1.showOpenDialog(this);
          if (returnVal == jFileChooser1.APPROVE_OPTION)
         {
-            
+            // basic file chooser and add file to text area
 
-            File selectedFile = jFileChooser1.getSelectedFile();
-            
-            jFileListText.setText(jFileChooser1.getSelectedFile().getAbsolutePath());
+           File selectedFile = jFileChooser1.getSelectedFile();          
+           
 
         
         }
@@ -247,6 +270,12 @@ public class SearchEngine extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         jTextSearchResults.setText("No Matching Results");
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // 
+        //jFileListText.removeAll();
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,8 +316,8 @@ public class SearchEngine extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JTable jFLTable;
     private javax.swing.JFileChooser jFileChooser1;
-    private javax.swing.JTextArea jFileListText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
