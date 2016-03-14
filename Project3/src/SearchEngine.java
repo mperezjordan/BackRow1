@@ -1,9 +1,12 @@
 
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -23,10 +26,13 @@ public class SearchEngine extends javax.swing.JFrame {
      */
     
     File fileStore = new File("/Temp.txt");
+    
     DefaultTableModel model;
     public SearchEngine() {
         initComponents();
         model = (DefaultTableModel)jFLTable.getModel();
+        Scanner scan = new Scanner("/Temp.txt");
+
     }
 
     /**
@@ -264,32 +270,32 @@ public class SearchEngine extends javax.swing.JFrame {
 
     private void jMenuAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAddActionPerformed
         
-        
-        
-        
-        
+
         int returnVal = jFileChooser1.showOpenDialog(this);
          if (returnVal == jFileChooser1.APPROVE_OPTION)
         {
             // adds files to table
 
            File selectedFile = jFileChooser1.getSelectedFile();  
-           model.insertRow(model.getRowCount(), new Object[]{selectedFile.getAbsoluteFile()});
            
+   
            try {
 
             if(!fileStore.exists()){
                fileStore.createNewFile();
             }
-
+               
+            // temp adds seleceted files to table
+            model.insertRow(model.getRowCount(), new Object[]{selectedFile.getAbsoluteFile()});
             
             
+            //adds seleced files to file
             PrintWriter out = new PrintWriter(new FileWriter(fileStore.getAbsoluteFile(), true));
 
             
             out.append(selectedFile.getAbsolutePath() + "\n");
             out.close();
-           
+ 
             
             } catch(IOException e){
 
@@ -310,8 +316,9 @@ public class SearchEngine extends javax.swing.JFrame {
         //removes selected row from table
        if (jFLTable.getSelectedRow() != -1)
        {
+           
            model.removeRow(jFLTable.getSelectedRow());
-       
+
        }
        
         
@@ -321,6 +328,7 @@ public class SearchEngine extends javax.swing.JFrame {
         // refresh file list on menu click
       
        
+       model.insertRow(model.getRowCount(), new Object[]{});
        
        
         
@@ -359,6 +367,7 @@ public class SearchEngine extends javax.swing.JFrame {
                 new SearchEngine().setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
