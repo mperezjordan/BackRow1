@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Scanner;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -26,12 +25,40 @@ public class SearchEngine extends javax.swing.JFrame {
      */
     
     File fileStore = new File("/Temp.txt");
+    //Scanner scan = new Scanner("/Temp.txt");
+    //BufferedReader scan = new BufferedReader(fileStore);
     
     DefaultTableModel model;
     public SearchEngine() {
         initComponents();
         model = (DefaultTableModel)jFLTable.getModel();
-        Scanner scan = new Scanner("/Temp.txt");
+       
+        String line;
+       
+        try{ 
+            
+            
+         FileReader reader = new FileReader(fileStore);
+        
+            BufferedReader fileReader = new BufferedReader(reader);
+        
+            line = fileReader.readLine();
+        
+            System.out.println("Reading..");
+        
+            while(line != null){
+            
+                System.out.println("Reading from file...");
+                //line = fileReader.readLine();
+                 model.insertRow(model.getRowCount(), new Object[]{line = fileReader.readLine()});
+                 
+            }
+            fileReader.close();
+       } catch(IOException e){
+
+                e.printStackTrace();
+            }
+        
 
     }
 
@@ -296,7 +323,7 @@ public class SearchEngine extends javax.swing.JFrame {
             out.append(selectedFile.getAbsolutePath() + "\n");
             out.close();
  
-            
+          
             } catch(IOException e){
 
                 e.printStackTrace();
@@ -304,7 +331,7 @@ public class SearchEngine extends javax.swing.JFrame {
 
         
         }
-        
+    
     }//GEN-LAST:event_jMenuAddActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
