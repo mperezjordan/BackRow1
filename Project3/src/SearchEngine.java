@@ -1,6 +1,7 @@
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -50,7 +51,7 @@ public class SearchEngine extends javax.swing.JFrame {
         try{ 
             
             
-         FileReader reader = new FileReader(fileStore);
+            FileReader reader = new FileReader(fileStore);
         
             BufferedReader fileReader = new BufferedReader(reader);
         
@@ -72,6 +73,18 @@ public class SearchEngine extends javax.swing.JFrame {
     
     
     }
+    
+    
+    public void WriterFromTable(){
+    
+       
+    
+    }
+    
+    
+    
+    
+    
     
 
     /**
@@ -351,14 +364,30 @@ public class SearchEngine extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // 
+       
+        try{
         //removes selected row from table
-       if (jFLTable.getSelectedRow() != -1)
-       {
-           
+        if (jFLTable.getSelectedRow() != -1)
+        {
            model.removeRow(jFLTable.getSelectedRow());
+        }
+        // removes selected row from text file
+        FileWriter fw = new FileWriter(fileStore.getAbsoluteFile());
+        BufferedWriter bw = new BufferedWriter(fw);
+        
+        for(int i = 0; i < model.getRowCount(); i++){
+            for(int j = 0; j < model.getColumnCount(); j++){
+                bw.write(model.getValueAt(i, j) + " ");
+            }
+            bw.write("\n");
+        }
+        bw.close();
+        fw.close();
+        
+       } catch(IOException e) {
 
-       }
+                e.printStackTrace();
+            }
        
         
     }//GEN-LAST:event_jButton1ActionPerformed
