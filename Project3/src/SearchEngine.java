@@ -29,13 +29,21 @@ public class SearchEngine extends javax.swing.JFrame {
     //BufferedReader scan = new BufferedReader(fileStore);
     
     DefaultTableModel model;
+   
     public SearchEngine() {
         initComponents();
         
         // sets model for netbeans table
         model = (DefaultTableModel)jFLTable.getModel();
        
-      
+        this.Reader();
+       
+    }
+    
+
+    
+    public void Reader(){
+    
         // reads from file at program start
         String line;
        
@@ -61,8 +69,10 @@ public class SearchEngine extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         
-
+    
+    
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -354,13 +364,10 @@ public class SearchEngine extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuRebuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRebuildActionPerformed
+       
         // refresh file list on menu click
+        this.Reader();
       
-       
-       //model.insertRow(model.getRowCount(), new Object[]{});
-       
-       
-        
     }//GEN-LAST:event_jMenuRebuildActionPerformed
 
     /**
