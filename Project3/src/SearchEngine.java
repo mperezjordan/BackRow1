@@ -24,15 +24,19 @@ public class SearchEngine extends javax.swing.JFrame {
      * Creates new form SearchEngine
      */
     
-    File fileStore = new File("/Temp.txt");
+    File fileStore = new File("Temp.txt");
     //Scanner scan = new Scanner("/Temp.txt");
     //BufferedReader scan = new BufferedReader(fileStore);
     
     DefaultTableModel model;
     public SearchEngine() {
         initComponents();
+        
+        // sets model for netbeans table
         model = (DefaultTableModel)jFLTable.getModel();
        
+      
+        // reads from file at program start
         String line;
        
         try{ 
@@ -44,14 +48,12 @@ public class SearchEngine extends javax.swing.JFrame {
         
             line = fileReader.readLine();
         
-            System.out.println("Reading..");
-        
+            // while not end of file, reads and adds from file to table
             while(line != null){
-            
-                System.out.println("Reading from file...");
-                //line = fileReader.readLine();
+                // if line isn't empty it's added
+                if(line.length() > 0){
                  model.insertRow(model.getRowCount(), new Object[]{line = fileReader.readLine()});
-                 
+                }
             }
             fileReader.close();
        } catch(IOException e){
@@ -297,7 +299,7 @@ public class SearchEngine extends javax.swing.JFrame {
 
     private void jMenuAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAddActionPerformed
         
-
+        // opens file chooser
         int returnVal = jFileChooser1.showOpenDialog(this);
          if (returnVal == jFileChooser1.APPROVE_OPTION)
         {
@@ -307,7 +309,7 @@ public class SearchEngine extends javax.swing.JFrame {
            
    
            try {
-
+               // checks if file has been created yet
             if(!fileStore.exists()){
                fileStore.createNewFile();
             }
@@ -355,7 +357,7 @@ public class SearchEngine extends javax.swing.JFrame {
         // refresh file list on menu click
       
        
-       model.insertRow(model.getRowCount(), new Object[]{});
+       //model.insertRow(model.getRowCount(), new Object[]{});
        
        
         
