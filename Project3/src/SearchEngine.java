@@ -26,8 +26,7 @@ public class SearchEngine extends javax.swing.JFrame {
      */
     
     File fileStore = new File("Temp.txt");
-    //Scanner scan = new Scanner("/Temp.txt");
-    //BufferedReader scan = new BufferedReader(fileStore);
+    
     
     DefaultTableModel model;
    
@@ -40,8 +39,6 @@ public class SearchEngine extends javax.swing.JFrame {
         this.Reader();
        
     }
-    
-
     
     public void Reader(){
     
@@ -60,8 +57,8 @@ public class SearchEngine extends javax.swing.JFrame {
             // while not end of file, reads and adds from file to table
             while(line != null){
                 // if line isn't empty it's added
-                if(line.length() > 0){
-                 model.insertRow(model.getRowCount(), new Object[]{line = fileReader.readLine()});
+                if(line.length() >= 0){
+                 model.insertRow(model.getRowCount(), new Object[]{line = fileReader.readLine()});          
                 }
             }
             fileReader.close();
@@ -69,22 +66,41 @@ public class SearchEngine extends javax.swing.JFrame {
 
                 e.printStackTrace();
             }
-        
-    
-    
+
     }
+
     
-    
-    public void WriterFromTable(){
-    
-       
-    
+    public void Writer(){
+
+        // adds files to table
+
+        File selectedFile = jFileChooser1.getSelectedFile();  
+           
+   
+           try {
+               // checks if file has been created yet
+            if(!fileStore.exists()){
+               fileStore.createNewFile();
+            }
+               
+            // temp adds seleceted files to table
+            model.insertRow(model.getRowCount(), new Object[]{selectedFile.getAbsoluteFile()});
+            
+            
+            //adds seleced files to file
+            PrintWriter out = new PrintWriter(new FileWriter(fileStore.getAbsoluteFile(), true));
+
+            
+            out.append(selectedFile.getAbsolutePath() + "\n");
+            out.close();
+ 
+          
+            } catch(IOException e){
+
+                e.printStackTrace();
+            }
+
     }
-    
-    
-    
-    
-    
     
 
     /**
@@ -326,35 +342,7 @@ public class SearchEngine extends javax.swing.JFrame {
         int returnVal = jFileChooser1.showOpenDialog(this);
          if (returnVal == jFileChooser1.APPROVE_OPTION)
         {
-            // adds files to table
-
-           File selectedFile = jFileChooser1.getSelectedFile();  
-           
-   
-           try {
-               // checks if file has been created yet
-            if(!fileStore.exists()){
-               fileStore.createNewFile();
-            }
-               
-            // temp adds seleceted files to table
-            model.insertRow(model.getRowCount(), new Object[]{selectedFile.getAbsoluteFile()});
-            
-            
-            //adds seleced files to file
-            PrintWriter out = new PrintWriter(new FileWriter(fileStore.getAbsoluteFile(), true));
-
-            
-            out.append(selectedFile.getAbsolutePath() + "\n");
-            out.close();
- 
-          
-            } catch(IOException e){
-
-                e.printStackTrace();
-            }
-
-        
+          this.Writer();
         }
     
     }//GEN-LAST:event_jMenuAddActionPerformed
@@ -376,10 +364,7 @@ public class SearchEngine extends javax.swing.JFrame {
         BufferedWriter bw = new BufferedWriter(fw);
         
         for(int i = 0; i < model.getRowCount(); i++){
-            for(int j = 0; j < model.getColumnCount(); j++){
-                bw.write(model.getValueAt(i, j) + " ");
-            }
-            bw.write("\n");
+                bw.write(model.getValueAt(i, i) + "\n");   
         }
         bw.close();
         fw.close();
@@ -395,7 +380,7 @@ public class SearchEngine extends javax.swing.JFrame {
     private void jMenuRebuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRebuildActionPerformed
        
         // refresh file list on menu click
-        this.Reader();
+        model.fireTableDataChanged();
       
     }//GEN-LAST:event_jMenuRebuildActionPerformed
 
