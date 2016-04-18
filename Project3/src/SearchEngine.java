@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -20,40 +21,26 @@ import javax.swing.table.DefaultTableModel;
  * @author Kira
  */
 public class SearchEngine extends javax.swing.JFrame {
-
     /**
      * Creates new form SearchEngine
-     */
-    
+     */   
     File fileStore = new File("Temp.txt");
-    
-    
     DefaultTableModel model;
-   
+ 
     public SearchEngine() {
-        initComponents();
-        
+        initComponents();        
         // sets model for netbeans table
         model = (DefaultTableModel)jFLTable.getModel();
-       
         this.Reader();
-       
     }
     
-    public void Reader(){
-    
+    public void Reader(){ 
         // reads from file at program start
         String line;
-       
         try{ 
-            
-            
-            FileReader reader = new FileReader(fileStore);
-        
-            BufferedReader fileReader = new BufferedReader(reader);
-        
-            line = fileReader.readLine();
-        
+            FileReader reader = new FileReader(fileStore);        
+            BufferedReader fileReader = new BufferedReader(reader);        
+            line = fileReader.readLine();       
             // while not end of file, reads and adds from file to table
             while(line != null){
                 // if line isn't empty it's added
@@ -62,46 +49,60 @@ public class SearchEngine extends javax.swing.JFrame {
                 }
             }
             fileReader.close();
-       } catch(IOException e){
-
+            } catch(IOException e){
                 e.printStackTrace();
             }
-
     }
-
     
     public void Writer(){
-
         // adds files to table
-
         File selectedFile = jFileChooser1.getSelectedFile();  
-           
-   
            try {
                // checks if file has been created yet
             if(!fileStore.exists()){
                fileStore.createNewFile();
             }
-               
             // temp adds seleceted files to table
             model.insertRow(model.getRowCount(), new Object[]{selectedFile.getAbsoluteFile()});
-            
-            
+
             //adds seleced files to file
             PrintWriter out = new PrintWriter(new FileWriter(fileStore.getAbsoluteFile(), true));
-
-            
             out.append(selectedFile.getAbsolutePath() + "\n");
             out.close();
- 
-          
             } catch(IOException e){
-
                 e.printStackTrace();
             }
-
     }
     
+    
+    public void TestSearch(){
+    
+    // testing different file searching methods
+    // doesnt work yet
+     try{
+            Scanner scan = new Scanner(fileStore);
+            Scanner kb = new Scanner(jSearchField.getText());
+            String name = kb.nextLine();
+            while(scan.hasNextLine()){
+                File file = new File(scan.nextLine());
+                Scanner scan2 = new Scanner(file);
+                final String lineFromFile = scan2.nextLine();
+                while(scan2.hasNextLine()){
+                    if(lineFromFile.matches(name)) { 
+                    // a match!
+                    jTextSearchResults.setText("Found: " +name+ " in file " + file.getName());
+                    break;
+                    }
+                   
+                }
+                
+            }
+        }catch(IOException e){
+          e.printStackTrace();
+        }
+    
+    
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,7 +124,7 @@ public class SearchEngine extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextSearchResults = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jSearchField = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -285,7 +286,7 @@ public class SearchEngine extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -315,7 +316,7 @@ public class SearchEngine extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -337,10 +338,9 @@ public class SearchEngine extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAddActionPerformed
-        
         // opens file chooser
         int returnVal = jFileChooser1.showOpenDialog(this);
-         if (returnVal == jFileChooser1.APPROVE_OPTION)
+        if (returnVal == jFileChooser1.APPROVE_OPTION)
         {
           this.Writer();
         }
@@ -348,11 +348,12 @@ public class SearchEngine extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuAddActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jTextSearchResults.setText("No Matching Results");
+        // button press for search
+       // jTextSearchResults.setText("No Matching Results");
+       this.TestSearch();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
         try{
         //removes selected row from table
         if (jFLTable.getSelectedRow() != -1)
@@ -367,18 +368,15 @@ public class SearchEngine extends javax.swing.JFrame {
                 bw.write(model.getValueAt(i, i) + "\n");   
         }
         bw.close();
-        fw.close();
-        
-       } catch(IOException e) {
-
-                e.printStackTrace();
-            }
+        fw.close();  
+        } catch(IOException e) {
+            e.printStackTrace();
+          }
        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuRebuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRebuildActionPerformed
-       
         // refresh file list on menu click
         model.fireTableDataChanged();
       
@@ -442,7 +440,7 @@ public class SearchEngine extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jSearchField;
     private javax.swing.JTextArea jTextSearchResults;
     // End of variables declaration//GEN-END:variables
 }
