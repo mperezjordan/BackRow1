@@ -26,7 +26,7 @@ public class SearchEngine extends javax.swing.JFrame {
      */   
     File fileStore = new File("Temp.txt");
     DefaultTableModel model;
-
+    
  
     public SearchEngine() {
         initComponents();        
@@ -129,6 +129,41 @@ public class SearchEngine extends javax.swing.JFrame {
     
     
     }
+    
+    public void TestSearch2(){
+        // testing another search method
+        try{
+            File dir = new File("Temp.txt");
+            Scanner scan = new Scanner(dir);
+            
+            String name = jSearchField.getText();
+            while(scan.hasNextLine()){
+                File file = new File(scan.nextLine());
+                Scanner scan2 = new Scanner(file);
+                final String lineFromFile = scan2.nextLine();
+                while(scan2.hasNextLine()){
+                    
+                    if(lineFromFile.matches(name)) { 
+                    // System out prints for debugging
+                    System.out.println("Found " +name+ " in file " +file.getName());
+                    jSearchResults.setText("Found " +name+ " in file " +file.getName());
+                    break;
+                    }
+                    else System.out.println("No Matches Found");
+                    jSearchResults.setText("No Matches Found");
+                    break;
+                }
+                scan2.close();
+                
+            }
+            scan.close();
+        }catch(IOException e){
+          e.printStackTrace();
+        }
+    }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -375,7 +410,8 @@ public class SearchEngine extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // button press for search
-        this.TestSearch();
+        //this.TestSearch();
+        this.TestSearch2();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -446,7 +482,7 @@ public class SearchEngine extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    public javax.swing.JButton jButton2;
     private javax.swing.JTable jFLTable;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
@@ -465,7 +501,7 @@ public class SearchEngine extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jSearchField;
+    public javax.swing.JTextField jSearchField;
     private javax.swing.JTextArea jSearchResults;
     // End of variables declaration//GEN-END:variables
 }
