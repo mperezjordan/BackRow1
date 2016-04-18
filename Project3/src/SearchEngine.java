@@ -36,6 +36,7 @@ public class SearchEngine extends javax.swing.JFrame {
     }
     
     public void Reader(){ 
+        
         // reads from file at program start
         String line;
         try{ 
@@ -81,23 +82,26 @@ public class SearchEngine extends javax.swing.JFrame {
     // testing different file searching methods
     // doesnt work yet
      try{
-            Scanner scan = new Scanner(fileStore);
-            String name = jSearchField.getText();
-            while(scan.hasNextLine()){
-                File file = new File(scan.nextLine());
-                Scanner scan2 = new Scanner(file);
-                final String lineFromFile = scan2.nextLine();
-                while(scan2.hasNextLine()){
-                    if(lineFromFile.matches(name)) { 
-                    // a match!
-                    jTextSearchResults.setText("Found: " +name+ " in file " + file.getName());
-                    break;
-                    }
-                    else jTextSearchResults.setText("No Matches Found");
-                    break;
-                }
-                
-            }
+         File file2 = new File("Temp.txt");
+         Scanner scan = new Scanner(file2);
+         String input = jSearchField.getText();
+         while(scan.hasNextLine()){
+             File files = new File(scan.nextLine());
+             Scanner scan2 = new Scanner(files);
+             final String lineFromFile = scan2.nextLine();
+             while(scan2.hasNextLine()){
+                 if(lineFromFile.matches(input)){
+                     jSearchResults.setText("Found " +input);
+                     System.out.println(input);
+                     break;
+                 }
+                 else jSearchResults.setText("No Matches Found");
+                 System.out.println("No Matches");
+                 break;
+             }
+             scan2.close();
+         }
+         scan.close();
         }catch(IOException e){
           e.printStackTrace();
         }
@@ -123,7 +127,7 @@ public class SearchEngine extends javax.swing.JFrame {
         jFLTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextSearchResults = new javax.swing.JTextArea();
+        jSearchResults = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jSearchField = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
@@ -196,10 +200,10 @@ public class SearchEngine extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setToolTipText("");
 
-        jTextSearchResults.setColumns(20);
-        jTextSearchResults.setRows(5);
-        jScrollPane2.setViewportView(jTextSearchResults);
-        jTextSearchResults.setEditable(false);
+        jSearchResults.setColumns(20);
+        jSearchResults.setRows(5);
+        jScrollPane2.setViewportView(jSearchResults);
+        jSearchResults.setEditable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -350,8 +354,7 @@ public class SearchEngine extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // button press for search
-       // jTextSearchResults.setText("No Matching Results");
-       this.TestSearch();
+        this.TestSearch();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -442,6 +445,6 @@ public class SearchEngine extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jSearchField;
-    private javax.swing.JTextArea jTextSearchResults;
+    private javax.swing.JTextArea jSearchResults;
     // End of variables declaration//GEN-END:variables
 }
