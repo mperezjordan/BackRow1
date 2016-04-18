@@ -42,9 +42,10 @@ public class SearchEngine extends javax.swing.JFrame {
         try{ 
             FileReader reader = new FileReader(fileStore);        
             BufferedReader fileReader = new BufferedReader(reader);        
-            line = fileReader.readLine();       
+            line = fileReader.readLine(); 
             // while not end of file, reads and adds from file to table
             while(line != null){
+                
                 // if line isn't empty it's added
                 if(line.length() >= 0){
                  model.insertRow(model.getRowCount(), new Object[]{line = fileReader.readLine()});          
@@ -80,7 +81,8 @@ public class SearchEngine extends javax.swing.JFrame {
     public void TestSearch(){
     
     // testing different file searching methods
-    // doesnt work yet
+    // kinda of works, only finds first line so far of first file
+    // need help getting this to work
      try{
          File file2 = new File("Temp.txt");
          Scanner scan = new Scanner(file2);
@@ -96,18 +98,27 @@ public class SearchEngine extends javax.swing.JFrame {
              while(scan2.hasNextLine()){
                  // for debugging
                  System.out.println(scan2.nextLine());
-                 if(lineFromFile.matches(input)){
-                     //outputs matched text and file location
-                     jSearchResults.setText("Found " +input+ " in " +files.getName());
-                     // for debugging
-                     System.out.println(input);
-                     scan2.nextLine();
-                     break;
-                 }
-                 else jSearchResults.setText("No Matches Found");
-                 //for debugging
-                 System.out.println("No Matches");
-                 break;
+                 
+                 String starr[] = lineFromFile.split(" ");
+                 for(String string : starr){
+                    if(string.matches(input)){
+                        //outputs matched text and file location
+                        
+                        jSearchResults.setText("Found " +input+ " in " +files.getName()+ "\n");
+                        jSearchResults.append("Found " +input+ " in " +files.getName()+ "\n");
+                        
+                        // for debugging
+                        System.out.println(input);
+                        scan2.nextLine();
+                        break;
+                    }
+                    else {
+                        jSearchResults.setText("No Matches Found");
+                        //for debugging
+                        System.out.println("Searching..");
+                        break;
+                    }
+                }
              }
              scan2.close();
          }
