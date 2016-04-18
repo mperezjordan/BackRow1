@@ -26,6 +26,7 @@ public class SearchEngine extends javax.swing.JFrame {
      */   
     File fileStore = new File("Temp.txt");
     DefaultTableModel model;
+
  
     public SearchEngine() {
         initComponents();        
@@ -81,8 +82,7 @@ public class SearchEngine extends javax.swing.JFrame {
     // doesnt work yet
      try{
             Scanner scan = new Scanner(fileStore);
-            Scanner kb = new Scanner(jSearchField.getText());
-            String name = kb.nextLine();
+            String name = jSearchField.getText();
             while(scan.hasNextLine()){
                 File file = new File(scan.nextLine());
                 Scanner scan2 = new Scanner(file);
@@ -93,7 +93,8 @@ public class SearchEngine extends javax.swing.JFrame {
                     jTextSearchResults.setText("Found: " +name+ " in file " + file.getName());
                     break;
                     }
-                   
+                    else jTextSearchResults.setText("No Matches Found");
+                    break;
                 }
                 
             }
