@@ -84,18 +84,26 @@ public class SearchEngine extends javax.swing.JFrame {
      try{
          File file2 = new File("Temp.txt");
          Scanner scan = new Scanner(file2);
+         // gets text from search field
          String input = jSearchField.getText();
+         // searches temp.txt for file pathnames
          while(scan.hasNextLine()){
+             // uses the file pathnames to search through
              File files = new File(scan.nextLine());
              Scanner scan2 = new Scanner(files);
              final String lineFromFile = scan2.nextLine();
+             // while scanning files looks for input
              while(scan2.hasNextLine()){
+                 // for debugging
+                 System.out.println(scan2.nextLine());
                  if(lineFromFile.matches(input)){
                      jSearchResults.setText("Found " +input);
+                     // for debugging
                      System.out.println(input);
                      break;
                  }
                  else jSearchResults.setText("No Matches Found");
+                 //for debugging
                  System.out.println("No Matches");
                  break;
              }
