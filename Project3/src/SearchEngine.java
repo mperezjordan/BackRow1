@@ -97,9 +97,11 @@ public class SearchEngine extends javax.swing.JFrame {
                  // for debugging
                  System.out.println(scan2.nextLine());
                  if(lineFromFile.matches(input)){
-                     jSearchResults.setText("Found " +input);
+                     //outputs matched text and file location
+                     jSearchResults.setText("Found " +input+ " in " +files.getName());
                      // for debugging
                      System.out.println(input);
+                     scan2.nextLine();
                      break;
                  }
                  else jSearchResults.setText("No Matches Found");
