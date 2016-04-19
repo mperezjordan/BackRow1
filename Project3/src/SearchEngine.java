@@ -77,75 +77,28 @@ public class SearchEngine extends javax.swing.JFrame {
             }
     }
     
-    
-    public void TestSearch(){
-    
-    // testing different file searching methods
-    // kinda of works, only finds first line so far of first file
-    // need help getting this to work
-     try{
-         File file2 = new File("Temp.txt");
-         Scanner scan = new Scanner(file2);
-         // gets text from search field
-         String input = jSearchField.getText();
-         // searches temp.txt for file pathnames
-         while(scan.hasNextLine()){
-             // uses the file pathnames to search through
-             File files = new File(scan.nextLine());
-             Scanner scan2 = new Scanner(files);
-             final String lineFromFile = scan2.nextLine();
-             // while scanning files looks for input
-             while(scan2.hasNextLine()){
-                 // for debugging
-                 System.out.println(scan2.nextLine());
-                 
-                 String starr[] = lineFromFile.split(" ");
-                 for(String string : starr){
-                    if(string.matches(input)){
-                        //outputs matched text and file location
-                        
-                        jSearchResults.setText("Found " +input+ " in " +files.getName()+ "\n");
-                        jSearchResults.append("Found " +input+ " in " +files.getName()+ "\n");
-                        
-                        // for debugging
-                        System.out.println(input);
-                        scan2.nextLine();
-                        break;
-                    }
-                    else {
-                        jSearchResults.setText("No Matches Found");
-                        //for debugging
-                        System.out.println("Searching..");
-                        break;
-                    }
-                }
-             }
-             scan2.close();
-         }
-         scan.close();
-        }catch(IOException e){
-          e.printStackTrace();
-        }
-    
-    
-    }
-    
+
     public void TestSearch2(){
         // testing another search method
+        // still only finds first line of first file
         try{
             File dir = new File("Temp.txt");
             Scanner scan = new Scanner(dir);
-            
+            // gets text from search field
             String name = jSearchField.getText();
+            // searches temp.txt for file pathnames
             while(scan.hasNextLine()){
+                // uses the file pathnames to search through
                 File file = new File(scan.nextLine());
                 Scanner scan2 = new Scanner(file);
                 final String lineFromFile = scan2.nextLine();
+                // while scanning files looks for input
                 while(scan2.hasNextLine()){
                     
                     if(lineFromFile.matches(name)) { 
                     // System out prints for debugging
                     System.out.println("Found " +name+ " in file " +file.getName());
+                     //outputs matched text and file location
                     jSearchResults.setText("Found " +name+ " in file " +file.getName());
                     break;
                     }
