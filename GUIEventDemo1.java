@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package guieventdemo1;
 
 /**
- * BackRow1 Group Java2 COP 2805
- * Janna Barry
+ *
  * @author Mario
- * Kyle McIntyre
- */ 
+ */
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -25,7 +17,8 @@ import javax.swing.border.*;
 
 public class GUIEventDemo1 extends JFrame {
   JTextArea ta  = new JTextArea();
-  // Create Label Title
+  // Create Label Message
+  private JLabel jlblMessage = new JLabel("", JLabel.CENTER);
   JLabel  jlblTitle = new JLabel ("Search Engine", JLabel.CENTER);
   Font font = new Font("Courier", Font.BOLD, 22);
   //jlblTitle.setFont(font);
@@ -108,12 +101,8 @@ public class GUIEventDemo1 extends JFrame {
     }
     
     
-    ta.setText("Word  " + inputSearch  + "  found  :   " + count + "  times " + "  at  lines   " + lineNumber + "\n");
-    
-         
-
-       // 
-      }
+    ta.setText("Word  " + inputSearch  + "  found  :   " + count + "  times " + "  at  lines   " + lineNumber + "\n");      }
       });
-  } 
+    
+      }
 }
